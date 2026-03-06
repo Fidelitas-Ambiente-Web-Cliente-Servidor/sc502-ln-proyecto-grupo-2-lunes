@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abraza | Perfil del animal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style_proyecto.css" />
+    <script src="js/publico.js"></script>
+</head>
+
+<body>
+    <header class="header" id="inicio">
+        <div class="container header-container">
+            <div class="brand">
+                <img src="img/logo.jpeg" alt="Logo Abraza" class="logo">
+                <div class="texto-marca">
+                    <h1>Abraza</h1>
+                    <p>Refugio y adopción responsable</p>
+                </div>
+            </div>
+
+            <nav class="menu-principal">
+                <a href="index.html">Inicio</a>
+                <a href="sobre.html">Sobre el Refugio</a>
+                <a href="animales.html">Animales</a>
+                <a href="citas.html">Citas</a>
+                <a href="consejos.html">Consejos</a>
+                <a href="donaciones.html">Donaciones</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="login.html" class="boton-login-menu">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero hero-interno">
+            <div class="container">
+                <h2 class="titulo-seccion">Perfil del animal</h2>
+
+                <div class="perfil-animal">
+                    <div class="galeria-animal">
+                        <img id="imagenPrincipalAnimal" src="img/perro1.jpeg" alt="Animal en adopción"
+                            class="imagen-principal-animal">
+
+                        <div class="mini-galeria">
+                            <img id="mini1" src="img/luna1.jpeg" alt="Foto 1">
+                            <img id="mini2" src="img/luna2.jpeg" alt="Foto 2">
+                        </div>
+                    </div>
+
+                    <div class="info-animal">
+                        <h2 id="nombreAnimal">Luna</h2>
+                        <p><strong>Especie:</strong> <span id="especieAnimal">Perro</span></p>
+                        <p><strong>Edad:</strong> <span id="edadAnimal">4 meses</span></p>
+                        <p><strong>Tamaño:</strong> <span id="tamanoAnimal">Mediano</span></p>
+                        <p><strong>Estado:</strong> <span id="estadoAnimal" class="estado-mascota">Disponible para
+                                adopción</span></p>
+
+                        <p id="descripcionAnimal" class="descripcion-perfil-animal">
+                            Cariñosa, sociable y con energía moderada.
+                        </p>
+
+                        <div class="bloque-info-animal">
+                            <h3>Más sobre este animal</h3>
+                            <p id="detalleAnimal">
+                                Ideal para personas responsables que puedan brindarle tiempo, cariño y atención.
+                            </p>
+                        </div>
+
+                        <div class="hero-botones">
+                            <a href="solicitud-adopcion.html" class="btn boton-principal">Quiero adoptar</a>
+                            <a href="animales.html" class="btn boton-secundario">Volver al listado</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-contenido">
+            <p>© <span id="year"></span> Abraza - Adopción responsable</p>
+            <a href="#inicio">Volver arriba</a>
+        </div>
+    </footer>
+</body>
+
+</html>
