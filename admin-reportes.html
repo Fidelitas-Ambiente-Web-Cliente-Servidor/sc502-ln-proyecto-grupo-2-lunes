@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abraza | Reportes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_proyecto.css" />
+    <script src="js/admin.js" defer></script>
+</head>
+
+<body>
+    <header class="header" id="inicio">
+        <div class="container header-container">
+            <div class="brand">
+                <img src="img/logo.jpeg" alt="Logo Abraza" class="logo">
+                <div class="texto-marca">
+                    <h1>Abraza (Administrador)</h1>
+                    <p>Reportes básicos</p>
+                </div>
+            </div>
+
+            <nav class="menu-principal">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="admin-animales.html">Animales</a>
+                <a href="admin-solicitudes.html">Solicitudes</a>
+                <a href="admin-adopciones.html">Adopciones</a>
+                <a href="admin-donaciones.html">Donaciones</a>
+                <a href="admin-contenido.html">Contenido</a>
+                <a href="admin-reportes.html">Reportes</a>
+                <a href="index.html" class="boton-login-menu">Sitio público</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="seccion">
+            <div class="container">
+                <h2 class="titulo-seccion">Generar reporte</h2>
+                <p class="subtitulo-seccion">Seleccioná un rango y tipo de reporte básico.</p>
+
+                <form id="formReportes" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="tipoReporte" class="form-label">Tipo de reporte</label>
+                        <select id="tipoReporte" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option>Animales disponibles</option>
+                            <option>Solicitudes pendientes</option>
+                            <option>Adopciones realizadas</option>
+                            <option>Donaciones recibidas</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="fechaInicioReporte" class="form-label">Fecha inicio</label>
+                        <input type="date" id="fechaInicioReporte" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="fechaFinReporte" class="form-label">Fecha fin</label>
+                        <input type="date" id="fechaFinReporte" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn boton-principal">Generar reporte</button>
+                    </div>
+
+                    <div class="col-12">
+                        <p id="mensajeReportes" class="fw-bold"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="seccion fondo-suave">
+            <div class="container">
+                <h2 class="titulo-seccion">Resumen mostrado</h2>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h3 class="h5">Animales disponibles</h3>
+                                <p class="display-6">10</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h3 class="h5">Solicitudes aprobadas</h3>
+                                <p class="display-6">5</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h3 class="h5">Donaciones del período</h3>
+                                <p class="display-6">₡85,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-contenido">
+            <p>© <span id="year"></span> Abraza - Módulo administrativo</p>
+            <a href="#inicio">Volver arriba</a>
+        </div>
+    </footer>
+</body>
+
+</html>

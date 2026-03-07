@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abraza | Gestión de Animales</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_proyecto.css" />
+    <script src="js/admin.js" defer></script>
+</head>
+
+<body>
+    <header class="header" id="inicio">
+        <div class="container header-container">
+            <div class="brand">
+                <img src="img/logo.jpeg" alt="Logo Abraza" class="logo">
+                <div class="texto-marca">
+                    <h1>Abraza (Administrador)</h1>
+                    <p>Gestión de animales</p>
+                </div>
+            </div>
+
+            <nav class="menu-principal">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="admin-animales.html">Animales</a>
+                <a href="admin-solicitudes.html">Solicitudes</a>
+                <a href="admin-adopciones.html">Adopciones</a>
+                <a href="admin-donaciones.html">Donaciones</a>
+                <a href="admin-contenido.html">Contenido</a>
+                <a href="admin-reportes.html">Reportes</a>
+                <a href="index.html" class="boton-login-menu">Sitio público</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="seccion">
+            <div class="container">
+                <h2 class="titulo-seccion">Registrar animal</h2>
+                <p class="subtitulo-seccion">Completá los datos básicos para agregar un animal al sistema.</p>
+
+                <form id="formAnimales" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nombreAnimal" class="form-label">Nombre</label>
+                        <input type="text" id="nombreAnimal" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="especieAnimal" class="form-label">Especie</label>
+                        <select id="especieAnimal" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option>Perro</option>
+                            <option>Gato</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="edadAnimal" class="form-label">Edad</label>
+                        <input type="number" id="edadAnimal" class="form-control" min="0" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="tamanoAnimal" class="form-label">Tamaño</label>
+                        <select id="tamanoAnimal" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option>Pequeño</option>
+                            <option>Mediano</option>
+                            <option>Grande</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="estadoAnimal" class="form-label">Estado</label>
+                        <select id="estadoAnimal" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option>Disponible</option>
+                            <option>En proceso</option>
+                            <option>Adoptado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="descripcionAnimal" class="form-label">Descripción</label>
+                        <textarea id="descripcionAnimal" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn boton-principal">Guardar animal</button>
+                        <button type="reset" class="btn boton-secundario">Limpiar</button>
+                    </div>
+
+                    <div class="col-12">
+                        <p id="mensajeAnimales" class="fw-bold"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="seccion fondo-suave">
+            <div class="container">
+                <h2 class="titulo-seccion">Listado rápido</h2>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Especie</th>
+                                <th>Edad</th>
+                                <th>Tamaño</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Luna</td>
+                                <td>Perro</td>
+                                <td>1</td>
+                                <td>Mediano</td>
+                                <td>Disponible</td>
+                            </tr>
+                            <tr>
+                                <td>Milo</td>
+                                <td>Gato</td>
+                                <td>2</td>
+                                <td>Pequeño</td>
+                                <td>Disponible</td>
+                            </tr>
+                            <tr>
+                                <td>Rocky</td>
+                                <td>Perro</td>
+                                <td>4</td>
+                                <td>Grande</td>
+                                <td>En proceso</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-contenido">
+            <p>© <span id="year"></span> Abraza - Módulo administrativo</p>
+            <a href="#inicio">Volver arriba</a>
+        </div>
+    </footer>
+</body>
+
+</html>

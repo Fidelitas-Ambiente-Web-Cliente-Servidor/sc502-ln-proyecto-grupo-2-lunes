@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abraza | Registro de Donaciones</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_proyecto.css" />
+    <script src="js/admin.js" defer></script>
+</head>
+
+<body>
+    <header class="header" id="inicio">
+        <div class="container header-container">
+            <div class="brand">
+                <img src="img/logo.jpeg" alt="Logo Abraza" class="logo">
+                <div class="texto-marca">
+                    <h1>Abraza (Administrador)</h1>
+                    <p>Registro de donaciones</p>
+                </div>
+            </div>
+
+            <nav class="menu-principal">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="admin-animales.html">Animales</a>
+                <a href="admin-solicitudes.html">Solicitudes</a>
+                <a href="admin-adopciones.html">Adopciones</a>
+                <a href="admin-donaciones.html">Donaciones</a>
+                <a href="admin-contenido.html">Contenido</a>
+                <a href="admin-reportes.html">Reportes</a>
+                <a href="index.html" class="boton-login-menu">Sitio público</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="seccion">
+            <div class="container">
+                <h2 class="titulo-seccion">Registrar donación</h2>
+                <p class="subtitulo-seccion">Ingresá información básica de dinero o artículos donados.</p>
+
+                <form id="formDonaciones" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nombreDonante" class="form-label">Nombre del donante</label>
+                        <input type="text" id="nombreDonante" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="tipoDonacion" class="form-label">Tipo de donación</label>
+                        <select id="tipoDonacion" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option>Dinero</option>
+                            <option>Alimento</option>
+                            <option>Medicinas</option>
+                            <option>Accesorios</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="montoDonacion" class="form-label">Monto o cantidad</label>
+                        <input type="number" id="montoDonacion" class="form-control" min="1" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="fechaDonacion" class="form-label">Fecha</label>
+                        <input type="date" id="fechaDonacion" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="detalleDonacion" class="form-label">Detalle</label>
+                        <textarea id="detalleDonacion" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn boton-principal">Guardar donación</button>
+                    </div>
+
+                    <div class="col-12">
+                        <p id="mensajeDonaciones" class="fw-bold"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="seccion fondo-suave">
+            <div class="container">
+                <h2 class="titulo-seccion">Últimas donaciones</h2>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Donante</th>
+                                <th>Tipo</th>
+                                <th>Monto/Cantidad</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laura Gómez</td>
+                                <td>Dinero</td>
+                                <td>25000</td>
+                                <td>04/03/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Veterinaria Zarcero</td>
+                                <td>Medicinas</td>
+                                <td>12</td>
+                                <td>05/03/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-contenido">
+            <p>© <span id="year"></span> Abraza - Módulo administrativo</p>
+            <a href="#inicio">Volver arriba</a>
+        </div>
+    </footer>
+</body>
+
+</html>
