@@ -455,5 +455,139 @@ document.addEventListener("DOMContentLoaded", function () {
             formCita.reset();
         });
     }
+    let formDonacion = document.getElementById("formDonacion");
+
+    if (formDonacion) {
+
+        let nombre = document.getElementById("nombreDonacion");
+        let contacto = document.getElementById("contactoDonacion");
+        let monto = document.getElementById("montoDonacion");
+        let metodo = document.getElementById("metodoDonacion");
+
+        let contenedor = document.querySelector(".formulario-proyecto");
+
+        let mensajeError = document.createElement("div");
+        mensajeError.className = "mensaje-formulario mensaje-error";
+
+        let mensajeOk = document.createElement("div");
+        mensajeOk.className = "mensaje-formulario mensaje-ok";
+
+        contenedor.appendChild(mensajeError);
+        contenedor.appendChild(mensajeOk);
+
+        function limpiarMensajesDonacion() {
+            mensajeError.style.display = "none";
+            mensajeOk.style.display = "none";
+            mensajeError.innerHTML = "";
+            mensajeOk.innerHTML = "";
+        }
+
+        formDonacion.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+            limpiarMensajesDonacion();
+
+            let errores = "";
+
+            if (nombre.value == "") {
+                errores += "<li>El nombre es obligatorio.</li>";
+            }
+
+            if (contacto.value == "") {
+                errores += "<li>El contacto es obligatorio.</li>";
+            }
+
+            if (monto.value.trim() == "") {
+                errores += "<li>Debe indicar el monto o la donación realizada.</li>";
+            }
+
+            if (metodo.value == "") {
+                errores += "<li>Debe seleccionar el método de donación.</li>";
+            }
+
+            if (errores != "") {
+                mensajeError.style.display = "block";
+                mensajeError.innerHTML = "<strong>Revisa lo siguiente:</strong><ul>" + errores + "</ul>";
+                return;
+            }
+
+            mensajeOk.style.display = "block";
+            mensajeOk.innerHTML =
+                "<strong>Donación registrada</strong><br><br>" +
+                "Nombre: " + nombre.value + "<br>" +
+                "Contacto: " + contacto.value + "<br>" +
+                "Monto o Articulo:" + monto.value + "<br>" +
+                "Método: " + metodo.value;
+
+            formDonacion.reset();
+
+        });
+
+    }
+    let formContacto = document.getElementById("formContacto");
+
+    if (formContacto) {
+
+        let nombre = document.getElementById("nombreContacto");
+        let contacto = document.getElementById("contactoMensaje");
+        let mensaje = document.getElementById("mensajeContacto");
+
+        let contenedor = document.querySelector(".formulario-proyecto");
+
+        let mensajeError = document.createElement("div");
+        mensajeError.className = "mensaje-formulario mensaje-error";
+
+        let mensajeOk = document.createElement("div");
+        mensajeOk.className = "mensaje-formulario mensaje-ok";
+
+        contenedor.appendChild(mensajeError);
+        contenedor.appendChild(mensajeOk);
+
+        function limpiarMensajesContacto() {
+            mensajeError.style.display = "none";
+            mensajeOk.style.display = "none";
+            mensajeError.innerHTML = "";
+            mensajeOk.innerHTML = "";
+        }
+
+        formContacto.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+            limpiarMensajesContacto();
+
+            let errores = "";
+
+            if (nombre.value == "") {
+                errores += "<li>El nombre es obligatorio.</li>";
+            }
+
+            if (contacto.value == "") {
+                errores += "<li>El contacto es obligatorio.</li>";
+            }
+            else if (contactoValido(contacto.value) == false) {
+                errores += "<li>El contacto debe ser un correo o teléfono válido.</li>";
+            }
+
+            if (mensaje.value == "") {
+                errores += "<li>El mensaje no puede estar vacío.</li>";
+            }
+
+            if (errores != "") {
+                mensajeError.style.display = "block";
+                mensajeError.innerHTML = "<strong>Revisa lo siguiente:</strong><ul>" + errores + "</ul>";
+                return;
+            }
+
+            mensajeOk.style.display = "block";
+            mensajeOk.innerHTML =
+                "<strong>Mensaje enviado correctamente</strong><br><br>" +
+                "Nombre: " + nombre.value + "<br>" +
+                "Contacto: " + contacto.value;
+
+            formContacto.reset();
+
+        });
+
+    }
 
 });
