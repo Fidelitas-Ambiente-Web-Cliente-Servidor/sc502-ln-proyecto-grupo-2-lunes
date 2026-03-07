@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Abraza | Seguimiento Post Adopción</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style_proyecto.css"/>
+<script src="js/usuario.js"></script>
+
+</head>
+
+<body>
+
+<header class="header" id="inicio">
+
+<div class="container header-container">
+
+<div class="brand">
+<img src="img/logo.jpeg" alt="Logo Abraza" class="logo">
+
+<div class="texto-marca">
+<h1>Abraza</h1>
+<p>Refugio y adopción responsable</p>
+</div>
+</div>
+
+<nav class="menu-principal">
+<a href="index.html">Inicio</a>
+<a href="animales.html">Animales</a>
+<a href="perfil.html">Mi perfil</a>
+<a href="mis-solicitudes.html">Mis solicitudes</a>
+<a href="historial-citas.html">Historial de citas</a>
+<a href="post-adopcion.html">Seguimiento</a>
+<a href="login.html" class="boton-login-menu">Cerrar sesión</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<section class="hero hero-interno">
+
+<div class="container hero-interno-contenido">
+
+<div class="hero-texto">
+
+<h2>Seguimiento post adopción</h2>
+
+<p>
+Adoptar una mascota es el inicio de una nueva historia.
+Aquí puedes reportar cómo se encuentra tu mascota y recibir
+consejos para su bienestar.
+</p>
+
+<div class="hero-badges">
+<span>Bienestar animal</span>
+<span>Cuidado responsable</span>
+<span>Amor por los animales</span>
+</div>
+
+</div>
+
+<div class="hero-image">
+<img src="img/portada-abraza.jpeg" alt="Post adopción">
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="seccion">
+
+<div class="container">
+
+<h2 class="titulo-seccion">Reporte de bienestar de tu mascota</h2>
+
+<p class="subtitulo-seccion">
+Comparte cómo se encuentra tu mascota después de la adopción.
+Esto nos ayuda a asegurar su bienestar.
+</p>
+
+<div class="tarjeta-info">
+
+<form>
+
+<div class="mb-3">
+<label class="form-label">Estado actual de la mascota</label>
+
+<select class="form-control">
+<option>Excelente</option>
+<option>Bien</option>
+<option>En adaptación</option>
+<option>Necesita atención veterinaria</option>
+</select>
+</div>
+
+
+<div class="mb-3">
+<label class="form-label">Comentarios del adoptante</label>
+
+<textarea class="form-control" rows="4"
+placeholder="Cuéntanos cómo se ha adaptado tu mascota..."></textarea>
+</div>
+
+
+<div class="mb-3">
+<label class="form-label">Subir foto de tu mascota</label>
+
+<input type="file" class="form-control">
+</div>
+
+
+<button type="submit" class="btn boton-principal">
+Enviar reporte
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="seccion fondo-suave">
+
+<div class="container">
+
+<h2 class="titulo-seccion">Historial de reportes</h2>
+
+<div class="tarjeta-info">
+
+<ul>
+
+<li>
+<strong>10/05/2026</strong> — Luna se adaptó muy bien al hogar y ya juega con la familia.
+</li>
+
+<li>
+<strong>25/05/2026</strong> — Primera visita al veterinario completada. Vacunas al día.
+</li>
+
+<li>
+<strong>15/06/2026</strong> — Luna está completamente adaptada y disfruta sus paseos diarios.
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="seccion fondo-suave">
+
+<div class="container">
+
+<h2 class="titulo-seccion">Consejos para tu mascota</h2>
+
+<div class="grid-info">
+
+
+<div class="tarjeta-info">
+
+<h3>Adaptación al hogar</h3>
+
+<p>
+Permite que tu mascota explore su nuevo hogar con calma.
+Es normal que los primeros días esté nerviosa o tímida.
+</p>
+
+<div class="ratio ratio-16x9">
+<iframe 
+src="https://www.youtube.com/embed/CRSt357yvTY?start=45"
+title="Adaptación de mascotas"
+allowfullscreen>
+</iframe>
+</div>
+
+</div>
+
+
+<div class="tarjeta-info">
+
+<h3>Alimentación</h3>
+
+<p>
+Mantén horarios regulares de comida y utiliza alimento adecuado
+para su edad y tamaño.
+</p>
+
+<div class="ratio ratio-16x9">
+<iframe 
+src="https://www.youtube.com/embed/k4PzcyPYy0E"
+title="Alimentación de mascotas"
+allowfullscreen>
+</iframe>
+</div>
+
+</div>
+
+
+<div class="tarjeta-info">
+
+<h3>Salud y veterinario</h3>
+
+<p>
+Realiza chequeos veterinarios periódicos y mantén las vacunas
+de tu mascota al día.
+</p>
+
+<video width="100%" controls>
+<source src="videos/cuidados.mp4" type="video/mp4">
+</video>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<footer class="footer">
+
+<div class="container footer-contenido">
+
+<p>© <span id="year"></span> Abraza - Adopción responsable</p>
+
+<a href="#inicio">Volver arriba</a>
+
+</div>
+
+</footer>
+
+</body>
+
+</html>
