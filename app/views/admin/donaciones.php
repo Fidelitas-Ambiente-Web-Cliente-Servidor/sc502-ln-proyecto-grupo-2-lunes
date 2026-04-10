@@ -1,33 +1,39 @@
-<?php $titulo = "Abraza | Admin Solicitudes"; ?>
+<?php $titulo = "Abraza | Admin Donaciones"; ?>
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 <?php require_once __DIR__ . '/../layouts/nav-admin.php'; ?>
 
 <main>
     <section class="seccion">
         <div class="container">
-            <h2 class="titulo-seccion">Gestión de solicitudes</h2>
+            <h2 class="titulo-seccion">Registro de donaciones</h2>
 
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Animal</th>
-                            <th>Solicitante</th>
+                            <th>Nombre</th>
                             <th>Contacto</th>
-                            <th>Estado</th>
+                            <th>Monto</th>
+                            <th>Método</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($solicitudes as $solicitud): ?>
+                        <?php if (!empty($donaciones)): ?>
+                            <?php foreach ($donaciones as $donacion): ?>
+                                <tr>
+                                    <td><?= $donacion['id']; ?></td>
+                                    <td><?= htmlspecialchars($donacion['nombre']); ?></td>
+                                    <td><?= htmlspecialchars($donacion['contacto']); ?></td>
+                                    <td>₡<?= number_format($donacion['monto'], 2); ?></td>
+                                    <td><?= htmlspecialchars($donacion['metodo']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <tr>
-                                <td><?= $solicitud['id']; ?></td>
-                                <td><?= htmlspecialchars($solicitud['nombre_animal']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['nombre']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['contacto']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['estado']); ?></td>
+                                <td colspan="5">No hay donaciones registradas.</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
