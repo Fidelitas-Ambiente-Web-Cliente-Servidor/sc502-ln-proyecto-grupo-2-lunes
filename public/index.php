@@ -139,4 +139,14 @@ switch ($accion) {
     default:
         echo "Acción no encontrada.";
         break;
+    
+        case 'register':
+        $controller = new AuthController();
+        $controller->showRegister();
+        break;
+
+        case 'guardarRegistro':
+        $controller = new AuthController();
+        $controller->register();
+        break;
 }

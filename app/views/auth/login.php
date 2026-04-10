@@ -8,6 +8,12 @@
             <h2 class="titulo-seccion">Iniciar sesión</h2>
             <p class="subtitulo-seccion">Ingresá tus datos para acceder al sistema.</p>
 
+            <?php if (!empty($_SESSION['mensaje_login'])): ?>
+                <div class="alert alert-success">
+                    <?= $_SESSION['mensaje_login']; unset($_SESSION['mensaje_login']); ?>
+                </div>
+            <?php endif; ?>
+
             <?php if (!empty($_SESSION['error_login'])): ?>
                 <div class="alert alert-danger">
                     <?= $_SESSION['error_login']; unset($_SESSION['error_login']); ?>
@@ -28,6 +34,11 @@
                         </div>
 
                         <button type="submit" class="btn boton-principal">Ingresar</button>
+                        <p class="mt-3">¿No tienes cuenta?</p>
+
+                    <a href="index.php?accion=register" class="btn btn-success">
+                    Registrarme
+                     </a>
                     </form>
                 </div>
             </div>
