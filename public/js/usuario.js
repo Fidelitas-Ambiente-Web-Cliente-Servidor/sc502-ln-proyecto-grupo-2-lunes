@@ -1,166 +1,154 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
 
-    let year = document.getElementById("year");
-
-    if (year) {
-        year.innerText = new Date().getFullYear();
+    let year = $("#year");
+    if (year.length) {
+        year.text(new Date().getFullYear());
     }
 
     function contactoValido(texto) {
-        if (texto == "") {
+        texto = $.trim(texto);
+
+        if (texto === "") {
             return false;
         }
 
-        if (isNaN(texto) == false && texto.length == 8) {
+        if ($.isNumeric(texto) && texto.length === 8) {
             return true;
         }
 
-        if (texto.indexOf("@") != -1) {
+        if (texto.indexOf("@") !== -1) {
             return true;
         }
 
         return false;
     }
 
-    let formPerfil = document.getElementById("formPerfil");
+    // FORM PERFIL
+    if ($("#formPerfil").length) {
+        let contenedor = $(".formulario-proyecto").first();
 
-    if (formPerfil) {
-        let nombre = document.getElementById("nombrePerfil");
-        let correo = document.getElementById("correoPerfil");
-        let telefono = document.getElementById("telefonoPerfil");
-        let direccion = document.getElementById("direccionPerfil");
-        let vivienda = document.getElementById("viviendaPerfil");
-        let experiencia = document.getElementById("experienciaPerfil");
-
-        let datoNombre = document.getElementById("datoNombrePerfil");
-        let datoCorreo = document.getElementById("datoCorreoPerfil");
-        let datoTelefono = document.getElementById("datoTelefonoPerfil");
-        let datoDireccion = document.getElementById("datoDireccionPerfil");
-        let datoVivienda = document.getElementById("datoViviendaPerfil");
-        let datoExperiencia = document.getElementById("datoExperienciaPerfil");
-
-        let contenedor = document.querySelector(".formulario-proyecto");
-
-        let mensajeError = document.createElement("div");
-        mensajeError.className = "mensaje-formulario mensaje-error";
-
-        let mensajeOk = document.createElement("div");
-        mensajeOk.className = "mensaje-formulario mensaje-ok";
-
-        contenedor.appendChild(mensajeError);
-        contenedor.appendChild(mensajeOk);
-
-        function limpiarMensajesPerfil() {
-            mensajeError.style.display = "none";
-            mensajeError.innerHTML = "";
-            mensajeOk.style.display = "none";
-            mensajeOk.innerHTML = "";
+        if ($("#mensajeErrorPerfil").length === 0) {
+            contenedor.append('<div id="mensajeErrorPerfil" class="mensaje-formulario mensaje-error" style="display:none;"></div>');
         }
 
-        formPerfil.addEventListener("submit", function (event) {
-            event.preventDefault();
+        if ($("#mensajeOkPerfil").length === 0) {
+            contenedor.append('<div id="mensajeOkPerfil" class="mensaje-formulario mensaje-ok" style="display:none;"></div>');
+        }
+
+        function limpiarMensajesPerfil() {
+            $("#mensajeErrorPerfil").hide().html("");
+            $("#mensajeOkPerfil").hide().html("");
+        }
+
+        $("#formPerfil").on("submit", function (event) {
+            let nombre = $("#nombrePerfil");
+            let correo = $("#correoPerfil");
+            let telefono = $("#telefonoPerfil");
+            let direccion = $("#direccionPerfil");
+            let vivienda = $("#viviendaPerfil");
+            let experiencia = $("#experienciaPerfil");
+
+            let datoNombre = $("#datoNombrePerfil");
+            let datoCorreo = $("#datoCorreoPerfil");
+            let datoTelefono = $("#datoTelefonoPerfil");
+            let datoDireccion = $("#datoDireccionPerfil");
+            let datoVivienda = $("#datoViviendaPerfil");
+            let datoExperiencia = $("#datoExperienciaPerfil");
+
             limpiarMensajesPerfil();
 
             let errores = "";
 
-            if (nombre.value == "") {
+            if ($.trim(nombre.val()) === "") {
                 errores += "<li>El nombre es obligatorio.</li>";
-                nombre.style.borderColor = "red";
+                nombre.css("border-color", "red");
             } else {
-                nombre.style.borderColor = "#cfdede";
+                nombre.css("border-color", "#cfdede");
             }
 
-            if (correo.value == "") {
+            if ($.trim(correo.val()) === "") {
                 errores += "<li>El correo es obligatorio.</li>";
-                correo.style.borderColor = "red";
-            } else if (contactoValido(correo.value) == false) {
+                correo.css("border-color", "red");
+            } else if (!contactoValido(correo.val())) {
                 errores += "<li>El correo debe ser válido.</li>";
-                correo.style.borderColor = "red";
+                correo.css("border-color", "red");
             } else {
-                correo.style.borderColor = "#cfdede";
+                correo.css("border-color", "#cfdede");
             }
 
-            if (telefono.value == "") {
+            if ($.trim(telefono.val()) === "") {
                 errores += "<li>El teléfono es obligatorio.</li>";
-                telefono.style.borderColor = "red";
-            } else if (isNaN(telefono.value) == true || telefono.value.length != 8) {
+                telefono.css("border-color", "red");
+            } else if (!$.isNumeric(telefono.val()) || telefono.val().length !== 8) {
                 errores += "<li>El teléfono debe tener 8 dígitos.</li>";
-                telefono.style.borderColor = "red";
+                telefono.css("border-color", "red");
             } else {
-                telefono.style.borderColor = "#cfdede";
+                telefono.css("border-color", "#cfdede");
             }
 
-            if (direccion.value == "") {
+            if ($.trim(direccion.val()) === "") {
                 errores += "<li>La dirección es obligatoria.</li>";
-                direccion.style.borderColor = "red";
+                direccion.css("border-color", "red");
             } else {
-                direccion.style.borderColor = "#cfdede";
+                direccion.css("border-color", "#cfdede");
             }
 
-            if (vivienda.value == "") {
+            if ($.trim(vivienda.val()) === "") {
                 errores += "<li>Debe seleccionar el tipo de vivienda.</li>";
-                vivienda.style.borderColor = "red";
+                vivienda.css("border-color", "red");
             } else {
-                vivienda.style.borderColor = "#cfdede";
+                vivienda.css("border-color", "#cfdede");
             }
 
-            if (experiencia.value == "") {
+            if ($.trim(experiencia.val()) === "") {
                 errores += "<li>Debe indicar si ha tenido mascotas antes.</li>";
-                experiencia.style.borderColor = "red";
+                experiencia.css("border-color", "red");
             } else {
-                experiencia.style.borderColor = "#cfdede";
+                experiencia.css("border-color", "#cfdede");
             }
 
-            if (errores != "") {
-                mensajeError.style.display = "block";
-                mensajeError.innerHTML = "<strong>Revisa lo siguiente:</strong><ul>" + errores + "</ul>";
+            if (errores !== "") {
+                event.preventDefault();
+                $("#mensajeErrorPerfil").show().html("<strong>Revisa lo siguiente:</strong><ul>" + errores + "</ul>");
                 return;
             }
 
-            datoNombre.innerText = nombre.value;
-            datoCorreo.innerText = correo.value;
-            datoTelefono.innerText = telefono.value;
-            datoDireccion.innerText = direccion.value;
-            datoVivienda.innerText = vivienda.value;
-            datoExperiencia.innerText = experiencia.value;
+            if (datoNombre.length) datoNombre.text(nombre.val());
+            if (datoCorreo.length) datoCorreo.text(correo.val());
+            if (datoTelefono.length) datoTelefono.text(telefono.val());
+            if (datoDireccion.length) datoDireccion.text(direccion.val());
+            if (datoVivienda.length) datoVivienda.text(vivienda.val());
+            if (datoExperiencia.length) datoExperiencia.text(experiencia.val());
 
-            mensajeOk.style.display = "block";
-            mensajeOk.innerHTML = "<strong>Perfil actualizado correctamente.</strong>";
-
-            formPerfil.reset();
+            $("#mensajeOkPerfil").show().html("<strong>Perfil validado correctamente.</strong>");
         });
     }
-    let formFiltroSolicitudes = document.getElementById("formFiltroSolicitudes");
-    let filtroEstadoSolicitud = document.getElementById("filtroEstadoSolicitud");
-    let mensajeFiltroSolicitud = document.getElementById("mensajeFiltroSolicitud");
-    let solicitudes = document.querySelectorAll(".solicitud");
 
-    if (formFiltroSolicitudes) {
-        formFiltroSolicitudes.addEventListener("submit", function (event) {
-            event.preventDefault();
+    // FILTRO SOLICITUDES
+    $("#formFiltroSolicitudes").on("submit", function (event) {
+        event.preventDefault();
 
-            let estadoSeleccionado = filtroEstadoSolicitud.value;
-            let cantidadVisibles = 0;
+        let estadoSeleccionado = $("#filtroEstadoSolicitud").val();
+        let cantidadVisibles = 0;
 
-            for (let i = 0; i < solicitudes.length; i++) {
-                let estadoSolicitud = solicitudes[i].getAttribute("data-estado");
+        $(".solicitud").each(function () {
+            let estadoSolicitud = String($(this).data("estado") || "");
 
-                if (estadoSeleccionado == "todas" || estadoSolicitud == estadoSeleccionado) {
-                    solicitudes[i].style.display = "block";
-                    cantidadVisibles++;
-                } else {
-                    solicitudes[i].style.display = "none";
-                }
-            }
-
-            if (cantidadVisibles > 0) {
-                mensajeFiltroSolicitud.style.color = "green";
-                mensajeFiltroSolicitud.innerText = "El filtro se aplicó correctamente.";
+            if (estadoSeleccionado === "todas" || estadoSolicitud === estadoSeleccionado) {
+                $(this).show();
+                cantidadVisibles++;
             } else {
-                mensajeFiltroSolicitud.style.color = "red";
-                mensajeFiltroSolicitud.innerText = "No se encontraron solicitudes con ese estado.";
+                $(this).hide();
             }
         });
-    }
+
+        if ($("#mensajeFiltroSolicitud").length) {
+            if (cantidadVisibles > 0) {
+                $("#mensajeFiltroSolicitud").text("El filtro se aplicó correctamente.").css("color", "green");
+            } else {
+                $("#mensajeFiltroSolicitud").text("No se encontraron solicitudes con ese estado.").css("color", "red");
+            }
+        }
+    });
 
 });

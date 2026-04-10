@@ -1,19 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const yearSpan = document.getElementById("year");
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
+$(document).ready(function () {
+
+    let year = $("#year");
+    if (year.length) {
+        year.text(new Date().getFullYear());
     }
 
     function mostrarMensaje(idMensaje, texto, color) {
-        const mensaje = document.getElementById(idMensaje);
-        if (mensaje) {
-            mensaje.textContent = texto;
-            mensaje.style.color = color;
+        let mensaje = $("#" + idMensaje);
+        if (mensaje.length) {
+            mensaje.text(texto);
+            mensaje.css("color", color);
         }
     }
 
     function textoVacio(valor) {
-        return valor.trim() === "";
+        return $.trim(valor) === "";
     }
 
     function validarFechaRango(fechaInicio, fechaFin) {
@@ -21,177 +22,158 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // VALIDACION ANIMALES
-    const formAnimales = document.getElementById("formAnimales");
-    if (formAnimales) {
-        formAnimales.addEventListener("submit", function (e) {
+    $("#formAnimales").on("submit", function (e) {
+        let nombre = $.trim($("#nombreAnimal").val());
+        let especie = $.trim($("#especieAnimal").val());
+        let edad = $.trim($("#edadAnimal").val());
+        let tamano = $.trim($("#tamanoAnimal").val());
+        let estado = $.trim($("#estadoAnimal").val());
+        let descripcion = $.trim($("#descripcionAnimal").val());
+
+        if (textoVacio(nombre) || textoVacio(especie) || textoVacio(edad) || textoVacio(tamano) || textoVacio(estado) || textoVacio(descripcion)) {
             e.preventDefault();
+            mostrarMensaje("mensajeAnimales", "Todos los campos del formulario de animales son obligatorios.", "red");
+            return;
+        }
 
-            const nombre = document.getElementById("nombreAnimal").value;
-            const especie = document.getElementById("especieAnimal").value;
-            const edad = document.getElementById("edadAnimal").value;
-            const tamano = document.getElementById("tamanoAnimal").value;
-            const estado = document.getElementById("estadoAnimal").value;
-            const descripcion = document.getElementById("descripcionAnimal").value;
+        if (Number(edad) < 0) {
+            e.preventDefault();
+            mostrarMensaje("mensajeAnimales", "La edad no puede ser negativa.", "red");
+            return;
+        }
 
-            if (textoVacio(nombre) || textoVacio(especie) || textoVacio(edad) || textoVacio(tamano) || textoVacio(estado) || textoVacio(descripcion)) {
-                mostrarMensaje("mensajeAnimales", "Todos los campos del formulario de animales son obligatorios.", "red");
-                return;
-            }
+        if (descripcion.length < 10) {
+            e.preventDefault();
+            mostrarMensaje("mensajeAnimales", "La descripción debe tener al menos 10 caracteres.", "red");
+            return;
+        }
 
-            if (Number(edad) < 0) {
-                mostrarMensaje("mensajeAnimales", "La edad no puede ser negativa.", "red");
-                return;
-            }
-
-            if (descripcion.trim().length < 10) {
-                mostrarMensaje("mensajeAnimales", "La descripción debe tener al menos 10 caracteres.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeAnimales", "Animal registrado correctamente.", "green");
-            formAnimales.reset();
-        });
-    }
+        mostrarMensaje("mensajeAnimales", "Formulario correcto.", "green");
+    });
 
     // VALIDACION SOLICITUDES
-    const formSolicitudes = document.getElementById("formSolicitudes");
-    if (formSolicitudes) {
-        formSolicitudes.addEventListener("submit", function (e) {
+    $("#formSolicitudes").on("submit", function (e) {
+        let codigo = $.trim($("#codigoSolicitud").val());
+        let solicitante = $.trim($("#nombreSolicitante").val());
+        let estado = $.trim($("#estadoSolicitud").val());
+        let observaciones = $.trim($("#observacionesSolicitud").val());
+
+        if (textoVacio(codigo) || textoVacio(solicitante) || textoVacio(estado) || textoVacio(observaciones)) {
             e.preventDefault();
+            mostrarMensaje("mensajeSolicitudes", "Todos los campos de solicitudes son obligatorios.", "red");
+            return;
+        }
 
-            const codigo = document.getElementById("codigoSolicitud").value;
-            const solicitante = document.getElementById("nombreSolicitante").value;
-            const estado = document.getElementById("estadoSolicitud").value;
-            const observaciones = document.getElementById("observacionesSolicitud").value;
+        if (observaciones.length < 8) {
+            e.preventDefault();
+            mostrarMensaje("mensajeSolicitudes", "Las observaciones deben tener al menos 8 caracteres.", "red");
+            return;
+        }
 
-            if (textoVacio(codigo) || textoVacio(solicitante) || textoVacio(estado) || textoVacio(observaciones)) {
-                mostrarMensaje("mensajeSolicitudes", "Todos los campos de solicitudes son obligatorios.", "red");
-                return;
-            }
-
-            if (observaciones.trim().length < 8) {
-                mostrarMensaje("mensajeSolicitudes", "Las observaciones deben tener al menos 8 caracteres.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeSolicitudes", "Solicitud actualizada correctamente.", "green");
-            formSolicitudes.reset();
-        });
-    }
+        mostrarMensaje("mensajeSolicitudes", "Formulario correcto.", "green");
+    });
 
     // VALIDACION ADOPCIONES
-    const formAdopciones = document.getElementById("formAdopciones");
-    if (formAdopciones) {
-        formAdopciones.addEventListener("submit", function (e) {
+    $("#formAdopciones").on("submit", function (e) {
+        let codigo = $.trim($("#codigoAdopcion").val());
+        let animal = $.trim($("#animalAdoptado").val());
+        let adoptante = $.trim($("#adoptante").val());
+        let fecha = $.trim($("#fechaSeguimiento").val());
+        let estado = $.trim($("#estadoSeguimiento").val());
+        let comentario = $.trim($("#comentarioSeguimiento").val());
+
+        if (textoVacio(codigo) || textoVacio(animal) || textoVacio(adoptante) || textoVacio(fecha) || textoVacio(estado) || textoVacio(comentario)) {
             e.preventDefault();
+            mostrarMensaje("mensajeAdopciones", "Todos los campos de adopciones son obligatorios.", "red");
+            return;
+        }
 
-            const codigo = document.getElementById("codigoAdopcion").value;
-            const animal = document.getElementById("animalAdoptado").value;
-            const adoptante = document.getElementById("adoptante").value;
-            const fecha = document.getElementById("fechaSeguimiento").value;
-            const estado = document.getElementById("estadoSeguimiento").value;
-            const comentario = document.getElementById("comentarioSeguimiento").value;
+        if (comentario.length < 10) {
+            e.preventDefault();
+            mostrarMensaje("mensajeAdopciones", "El comentario debe tener al menos 10 caracteres.", "red");
+            return;
+        }
 
-            if (textoVacio(codigo) || textoVacio(animal) || textoVacio(adoptante) || textoVacio(fecha) || textoVacio(estado) || textoVacio(comentario)) {
-                mostrarMensaje("mensajeAdopciones", "Todos los campos de adopciones son obligatorios.", "red");
-                return;
-            }
-
-            if (comentario.trim().length < 10) {
-                mostrarMensaje("mensajeAdopciones", "El comentario debe tener al menos 10 caracteres.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeAdopciones", "Seguimiento registrado correctamente.", "green");
-            formAdopciones.reset();
-        });
-    }
+        mostrarMensaje("mensajeAdopciones", "Formulario correcto.", "green");
+    });
 
     // VALIDACION DONACIONES
-    const formDonaciones = document.getElementById("formDonaciones");
-    if (formDonaciones) {
-        formDonaciones.addEventListener("submit", function (e) {
+    $("#formDonaciones").on("submit", function (e) {
+        let donante = $.trim($("#nombreDonante").val());
+        let tipo = $.trim($("#tipoDonacion").val());
+        let monto = $.trim($("#montoDonacion").val());
+        let fecha = $.trim($("#fechaDonacion").val());
+        let detalle = $.trim($("#detalleDonacion").val());
+
+        if (textoVacio(donante) || textoVacio(tipo) || textoVacio(monto) || textoVacio(fecha) || textoVacio(detalle)) {
             e.preventDefault();
+            mostrarMensaje("mensajeDonaciones", "Todos los campos de donaciones son obligatorios.", "red");
+            return;
+        }
 
-            const donante = document.getElementById("nombreDonante").value;
-            const tipo = document.getElementById("tipoDonacion").value;
-            const monto = document.getElementById("montoDonacion").value;
-            const fecha = document.getElementById("fechaDonacion").value;
-            const detalle = document.getElementById("detalleDonacion").value;
+        if (Number(monto) <= 0) {
+            e.preventDefault();
+            mostrarMensaje("mensajeDonaciones", "El monto o cantidad debe ser mayor a 0.", "red");
+            return;
+        }
 
-            if (textoVacio(donante) || textoVacio(tipo) || textoVacio(monto) || textoVacio(fecha) || textoVacio(detalle)) {
-                mostrarMensaje("mensajeDonaciones", "Todos los campos de donaciones son obligatorios.", "red");
-                return;
-            }
+        if (detalle.length < 5) {
+            e.preventDefault();
+            mostrarMensaje("mensajeDonaciones", "El detalle debe tener al menos 5 caracteres.", "red");
+            return;
+        }
 
-            if (Number(monto) <= 0) {
-                mostrarMensaje("mensajeDonaciones", "El monto o cantidad debe ser mayor a 0.", "red");
-                return;
-            }
-
-            if (detalle.trim().length < 5) {
-                mostrarMensaje("mensajeDonaciones", "El detalle debe tener al menos 5 caracteres.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeDonaciones", "Donación registrada correctamente.", "green");
-            formDonaciones.reset();
-        });
-    }
+        mostrarMensaje("mensajeDonaciones", "Formulario correcto.", "green");
+    });
 
     // VALIDACION CONTENIDO
-    const formContenido = document.getElementById("formContenido");
-    if (formContenido) {
-        formContenido.addEventListener("submit", function (e) {
+    $("#formContenido").on("submit", function (e) {
+        let titulo = $.trim($("#tituloContenido").val());
+        let tipo = $.trim($("#tipoContenido").val());
+        let autor = $.trim($("#autorContenido").val());
+        let fecha = $.trim($("#fechaContenido").val());
+        let descripcion = $.trim($("#descripcionContenido").val());
+
+        if (textoVacio(titulo) || textoVacio(tipo) || textoVacio(autor) || textoVacio(fecha) || textoVacio(descripcion)) {
             e.preventDefault();
+            mostrarMensaje("mensajeContenido", "Todos los campos de contenido son obligatorios.", "red");
+            return;
+        }
 
-            const titulo = document.getElementById("tituloContenido").value;
-            const tipo = document.getElementById("tipoContenido").value;
-            const autor = document.getElementById("autorContenido").value;
-            const fecha = document.getElementById("fechaContenido").value;
-            const descripcion = document.getElementById("descripcionContenido").value;
+        if (titulo.length < 5) {
+            e.preventDefault();
+            mostrarMensaje("mensajeContenido", "El título debe tener al menos 5 caracteres.", "red");
+            return;
+        }
 
-            if (textoVacio(titulo) || textoVacio(tipo) || textoVacio(autor) || textoVacio(fecha) || textoVacio(descripcion)) {
-                mostrarMensaje("mensajeContenido", "Todos los campos de contenido son obligatorios.", "red");
-                return;
-            }
+        if (descripcion.length < 15) {
+            e.preventDefault();
+            mostrarMensaje("mensajeContenido", "La descripción debe tener al menos 15 caracteres.", "red");
+            return;
+        }
 
-            if (titulo.trim().length < 5) {
-                mostrarMensaje("mensajeContenido", "El título debe tener al menos 5 caracteres.", "red");
-                return;
-            }
-
-            if (descripcion.trim().length < 15) {
-                mostrarMensaje("mensajeContenido", "La descripción debe tener al menos 15 caracteres.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeContenido", "Contenido guardado correctamente.", "green");
-            formContenido.reset();
-        });
-    }
+        mostrarMensaje("mensajeContenido", "Formulario correcto.", "green");
+    });
 
     // VALIDACION REPORTES
-    const formReportes = document.getElementById("formReportes");
-    if (formReportes) {
-        formReportes.addEventListener("submit", function (e) {
+    $("#formReportes").on("submit", function (e) {
+        let tipo = $.trim($("#tipoReporte").val());
+        let inicio = $.trim($("#fechaInicioReporte").val());
+        let fin = $.trim($("#fechaFinReporte").val());
+
+        if (textoVacio(tipo) || textoVacio(inicio) || textoVacio(fin)) {
             e.preventDefault();
+            mostrarMensaje("mensajeReportes", "Todos los campos del reporte son obligatorios.", "red");
+            return;
+        }
 
-            const tipo = document.getElementById("tipoReporte").value;
-            const inicio = document.getElementById("fechaInicioReporte").value;
-            const fin = document.getElementById("fechaFinReporte").value;
+        if (!validarFechaRango(inicio, fin)) {
+            e.preventDefault();
+            mostrarMensaje("mensajeReportes", "La fecha inicial no puede ser mayor que la fecha final.", "red");
+            return;
+        }
 
-            if (textoVacio(tipo) || textoVacio(inicio) || textoVacio(fin)) {
-                mostrarMensaje("mensajeReportes", "Todos los campos del reporte son obligatorios.", "red");
-                return;
-            }
+        mostrarMensaje("mensajeReportes", "Formulario correcto.", "green");
+    });
 
-            if (!validarFechaRango(inicio, fin)) {
-                mostrarMensaje("mensajeReportes", "La fecha inicial no puede ser mayor que la fecha final.", "red");
-                return;
-            }
-
-            mostrarMensaje("mensajeReportes", "Reporte generado correctamente.", "green");
-        });
-    }
 });
