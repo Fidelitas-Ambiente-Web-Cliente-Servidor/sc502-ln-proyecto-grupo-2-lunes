@@ -12,6 +12,7 @@
             <a href="index.php?accion=dashboard">Dashboard</a>
             <a href="index.php?accion=adminAnimales">Animales</a>
             <a href="index.php?accion=adminSolicitudes">Solicitudes</a>
+            <a href="index.php?accion=adminCitas">Citas</a>
             <a href="index.php?accion=adminDonaciones">Donaciones</a>
             <a href="index.php?accion=logout" class="boton-login-menu">Salir</a>
         </nav>

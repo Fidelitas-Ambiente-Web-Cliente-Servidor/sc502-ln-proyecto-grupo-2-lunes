@@ -19,4 +19,11 @@ class Cita
         $stmt->bind_param("issssiss", $usuarioId, $nombre, $contacto, $fecha, $hora, $personas, $motivo, $comentarios);
         return $stmt->execute();
     }
+
+    public function obtenerTodas()
+    {
+        $sql = "SELECT * FROM {$this->table} ORDER BY fecha DESC, hora DESC";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

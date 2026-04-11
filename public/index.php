@@ -149,4 +149,38 @@ switch ($accion) {
         $controller = new AuthController();
         $controller->register();
         break;
+        case 'adminSolicitudes':
+    $controller = new SolicitudController();
+    $controller->adminSolicitudes();
+    break;
+
+case 'aprobarSolicitud':
+    $controller = new SolicitudController();
+    $controller->aprobar();
+    break;
+
+case 'denegarSolicitud':
+    $controller = new SolicitudController();
+    $controller->denegar();
+    break;
+    
+    case 'adminCitas':
+    $controller = new CitaController();
+    $controller->adminCitas();
+    break;
+
+    case 'contacto':
+    $controller = new ContactoController();
+    $controller->showContacto();
+    break;
+
+case 'guardarContacto':
+    $controller = new ContactoController();
+    $controller->guardar();
+    break;
+
+case 'adminContactos':
+    $controller = new ContactoController();
+    $controller->adminContactos();
+    break;
 }

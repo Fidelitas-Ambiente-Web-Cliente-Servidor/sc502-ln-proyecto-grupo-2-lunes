@@ -52,4 +52,35 @@ class Solicitud
         $fila = $result->fetch_assoc();
         return $fila['total'] ?? 0;
     }
+
+    public function obtenerPorId($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id = ? LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function cambiarEstado($id, $estado)
+    {
+        $sql = "UPDATE {$this->table} SET estado = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $estado, $id);
+        return $stmt->execute();
+    }
+
+    public function denegarOtrasSolicitudesDelAnimal($animalId, $solicitudAprobadaId)
+    {
+        $estado = "Denegada";
+        $pendiente = "Pendiente";
+
+        $sql = "UPDATE {$this->table}
+                SET estado = ?
+                WHERE animal_id = ? AND id <> ? AND estado = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("siis", $estado, $animalId, $solicitudAprobadaId, $pendiente);
+        return $stmt->execute();
+    }
 }

@@ -2,16 +2,19 @@
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../models/Solicitud.php';
+require_once __DIR__ . '/../models/Animal.php';
 
 class SolicitudController
 {
     private $model;
+    private $animalModel;
 
     public function __construct()
     {
         $database = new Database();
         $db = $database->connect();
         $this->model = new Solicitud($db);
+        $this->animalModel = new Animal($db);
     }
 
     public function guardar()
@@ -59,6 +62,62 @@ class SolicitudController
         $this->validarAdmin();
         $solicitudes = $this->model->obtenerTodas();
         require_once __DIR__ . '/../views/admin/solicitudes.php';
+    }
+
+    public function aprobar()
+    {
+        $this->validarAdmin();
+
+        $id = $_GET['id'] ?? 0;
+        $solicitud = $this->model->obtenerPorId($id);
+
+        if (!$solicitud) {
+            $_SESSION['mensaje_admin'] = "Solicitud no encontrada.";
+            header("Location: index.php?accion=adminSolicitudes");
+            exit;
+        }
+
+        if ($solicitud['estado'] !== 'Pendiente') {
+            $_SESSION['mensaje_admin'] = "Solo se pueden aprobar solicitudes pendientes.";
+            header("Location: index.php?accion=adminSolicitudes");
+            exit;
+        }
+
+        $this->model->cambiarEstado($id, 'Aprobada');
+
+        $this->animalModel->cambiarEstado($solicitud['animal_id'], 'Adoptado');
+
+        $this->model->denegarOtrasSolicitudesDelAnimal($solicitud['animal_id'], $id);
+
+        $_SESSION['mensaje_admin'] = "Solicitud aprobada correctamente. El animal fue marcado como adoptado.";
+        header("Location: index.php?accion=adminSolicitudes");
+        exit;
+    }
+
+    public function denegar()
+    {
+        $this->validarAdmin();
+
+        $id = $_GET['id'] ?? 0;
+        $solicitud = $this->model->obtenerPorId($id);
+
+        if (!$solicitud) {
+            $_SESSION['mensaje_admin'] = "Solicitud no encontrada.";
+            header("Location: index.php?accion=adminSolicitudes");
+            exit;
+        }
+
+        if ($solicitud['estado'] !== 'Pendiente') {
+            $_SESSION['mensaje_admin'] = "Solo se pueden denegar solicitudes pendientes.";
+            header("Location: index.php?accion=adminSolicitudes");
+            exit;
+        }
+
+        $this->model->cambiarEstado($id, 'Denegada');
+
+        $_SESSION['mensaje_admin'] = "Solicitud denegada correctamente.";
+        header("Location: index.php?accion=adminSolicitudes");
+        exit;
     }
 
     private function validarUsuario()

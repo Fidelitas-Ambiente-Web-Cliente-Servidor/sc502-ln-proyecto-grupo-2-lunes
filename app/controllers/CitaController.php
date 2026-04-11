@@ -43,4 +43,20 @@ class CitaController
         header("Location: index.php?accion=citas");
         exit;
     }
+
+    public function adminCitas()
+    {
+        $this->validarAdmin();
+        $citas = $this->model->obtenerTodas();
+        require_once __DIR__ . '/../views/admin/citas.php';
+    }
+
+    private function validarAdmin()
+    {
+        
+        if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+            header("Location: index.php?accion=login");
+            exit;
+        }
+    }
 }

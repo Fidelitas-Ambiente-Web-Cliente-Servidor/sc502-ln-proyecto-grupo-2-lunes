@@ -50,4 +50,11 @@ class Animal
         $fila = $result->fetch_assoc();
         return $fila['total'] ?? 0;
     }
+    public function cambiarEstado($id, $estado)
+    {
+        $sql = "UPDATE {$this->table} SET estado = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $estado, $id);
+        return $stmt->execute();
+    }
 }

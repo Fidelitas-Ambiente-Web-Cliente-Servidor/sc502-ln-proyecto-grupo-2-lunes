@@ -7,6 +7,12 @@
         <div class="container">
             <h2 class="titulo-seccion">Gestión de solicitudes</h2>
 
+            <?php if (!empty($_SESSION['mensaje_admin'])): ?>
+                <div class="alert alert-info">
+                    <?= $_SESSION['mensaje_admin']; unset($_SESSION['mensaje_admin']); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -16,18 +22,39 @@
                             <th>Solicitante</th>
                             <th>Contacto</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($solicitudes as $solicitud): ?>
+                        <?php if (!empty($solicitudes)): ?>
+                            <?php foreach ($solicitudes as $solicitud): ?>
+                                <tr>
+                                    <td><?= $solicitud['id']; ?></td>
+                                    <td><?= htmlspecialchars($solicitud['nombre_animal']); ?></td>
+                                    <td><?= htmlspecialchars($solicitud['nombre']); ?></td>
+                                    <td><?= htmlspecialchars($solicitud['contacto']); ?></td>
+                                    <td><?= htmlspecialchars($solicitud['estado']); ?></td>
+                                    <td>
+                                        <?php if ($solicitud['estado'] === 'Pendiente'): ?>
+
+                                            <a href="index.php?accion=aprobarSolicitud&id=<?= $solicitud['id']; ?>" class="btn btn-success btn-sm">
+                                                Aceptar
+                                            </a>
+
+                                            <a href="index.php?accion=denegarSolicitud&id=<?= $solicitud['id']; ?>" class="btn btn-danger btn-sm">
+                                                Denegar
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="text-muted">Sin acciones</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <tr>
-                                <td><?= $solicitud['id']; ?></td>
-                                <td><?= htmlspecialchars($solicitud['nombre_animal']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['nombre']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['contacto']); ?></td>
-                                <td><?= htmlspecialchars($solicitud['estado']); ?></td>
+                                <td colspan="6">No hay solicitudes registradas.</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
