@@ -5,22 +5,38 @@
 <main>
     <section class="seccion">
         <div class="container">
-            <h2 class="titulo-seccion">Citas</h2>
-            <p class="subtitulo-seccion">Agendá una visita al refugio.</p>
+            <h2 class="titulo-seccion">Agendar cita</h2>
+            <p class="subtitulo-seccion">Programa una visita para conocer el refugio o recibir orientación.</p>
 
-            <form action="index.php?accion=guardarCita" method="post" class="formulario-proyecto" id="formCita">
-                <input type="text" id="nombreCita" name="nombre" class="form-control mb-3" placeholder="Nombre">
-                <input type="text" id="contactoCita" name="contacto" class="form-control mb-3" placeholder="Correo o teléfono">
-                <input type="date" id="fechaCita" name="fecha" class="form-control mb-3">
-                <input type="time" id="horaCita" name="hora" class="form-control mb-3">
-                <input type="number" id="personasCita" name="personas" class="form-control mb-3" placeholder="Cantidad de personas">
-                <input type="text" id="motivoCita" name="motivo" class="form-control mb-3" placeholder="Motivo">
-                <textarea id="comentariosCita" name="comentarios" class="form-control mb-3" placeholder="Comentarios"></textarea>
-                <button type="submit" class="btn boton-principal">Enviar cita</button>
-            </form>
+            <?php if (!empty($_SESSION['mensaje_publico'])): ?>
+                <div class="alert alert-info">
+                    <?= $_SESSION['mensaje_publico']; unset($_SESSION['mensaje_publico']); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!isset($_SESSION['usuario_id'])): ?>
+                <div class="alert alert-warning">
+                    Debes iniciar sesión para agendar una cita.
+                </div>
+
+                <a href="index.php?accion=login" class="btn boton-principal">
+                    Iniciar sesión
+                </a>
+            <?php else: ?>
+                <form action="index.php?accion=guardarCita" method="post" class="formulario-proyecto">
+                    <input type="text" name="nombre" class="form-control mb-3" placeholder="Nombre completo" required>
+                    <input type="text" name="contacto" class="form-control mb-3" placeholder="Correo o teléfono" required>
+                    <input type="date" name="fecha" class="form-control mb-3" required>
+                    <input type="time" name="hora" class="form-control mb-3" required>
+                    <input type="number" name="personas" class="form-control mb-3" placeholder="Cantidad de personas" required>
+                    <input type="text" name="motivo" class="form-control mb-3" placeholder="Motivo de la cita" required>
+                    <textarea name="comentarios" class="form-control mb-3" placeholder="Comentarios adicionales" required></textarea>
+
+                    <button type="submit" class="btn boton-principal">Agendar cita</button>
+                </form>
+            <?php endif; ?>
         </div>
     </section>
 </main>
 
-<script src="/sc502-ln-proyecto-grupo-2-lunes/public/js/publico.js"></script>
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

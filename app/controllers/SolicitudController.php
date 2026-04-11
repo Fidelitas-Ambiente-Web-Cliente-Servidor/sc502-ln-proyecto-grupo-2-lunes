@@ -16,6 +16,12 @@ class SolicitudController
 
     public function guardar()
     {
+        if (!isset($_SESSION['usuario_id'])) {
+            $_SESSION['error_login'] = "Debes iniciar sesión para enviar una solicitud de adopción.";
+            header("Location: index.php?accion=login");
+            exit;
+        }
+
         $animalId = trim($_POST['animal_id'] ?? '');
         $nombre = trim($_POST['nombre'] ?? '');
         $contacto = trim($_POST['contacto'] ?? '');
@@ -32,7 +38,7 @@ class SolicitudController
             exit;
         }
 
-        $usuarioId = $_SESSION['usuario_id'] ?? null;
+        $usuarioId = $_SESSION['usuario_id'];
         $ok = $this->model->insertar($usuarioId, $animalId, $nombre, $contacto, $edad, $direccion, $familia, $experiencia, $vivienda, $motivo);
 
         $_SESSION['mensaje_publico'] = $ok ? "Solicitud enviada correctamente." : "No se pudo enviar la solicitud.";
@@ -70,5 +76,4 @@ class SolicitudController
             exit;
         }
     }
-    
 }

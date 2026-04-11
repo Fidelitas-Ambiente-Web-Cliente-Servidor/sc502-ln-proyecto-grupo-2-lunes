@@ -60,10 +60,10 @@ class AuthController
         $_SESSION['usuario_rol'] = $usuario['rol'];
 
         if ($usuario['rol'] === 'admin') {
-            header("Location: index.php?accion=dashboard");
+        header("Location: index.php?accion=dashboard");
         } else {
-            header("Location: index.php?accion=perfil");
-        }
+        header("Location: index.php?accion=animales");
+}
         exit;
     }
 

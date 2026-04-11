@@ -16,7 +16,11 @@
             <a href="index.php?accion=consejos">Consejos</a>
             <a href="index.php?accion=donaciones">Donaciones</a>
             <a href="index.php?accion=contacto">Contacto</a>
-            <a href="index.php?accion=login" class="boton-login-menu">Login</a>
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <a href="index.php?accion=logout" class="boton-login-menu">Salir</a>
+            <?php else: ?>
+                <a href="index.php?accion=login" class="boton-login-menu">Login</a>
+            <?php endif; ?>
         </nav>
     </div>
 </header>

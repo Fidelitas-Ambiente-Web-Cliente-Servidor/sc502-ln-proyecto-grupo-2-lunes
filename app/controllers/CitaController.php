@@ -16,6 +16,12 @@ class CitaController
 
     public function guardar()
     {
+        if (!isset($_SESSION['usuario_id'])) {
+            $_SESSION['error_login'] = "Debes iniciar sesión para agendar una cita.";
+            header("Location: index.php?accion=login");
+            exit;
+        }
+
         $nombre = trim($_POST['nombre'] ?? '');
         $contacto = trim($_POST['contacto'] ?? '');
         $fecha = trim($_POST['fecha'] ?? '');
@@ -30,7 +36,7 @@ class CitaController
             exit;
         }
 
-        $usuarioId = $_SESSION['usuario_id'] ?? null;
+        $usuarioId = $_SESSION['usuario_id'];
         $ok = $this->model->insertar($usuarioId, $nombre, $contacto, $fecha, $hora, $personas, $motivo, $comentarios);
 
         $_SESSION['mensaje_publico'] = $ok ? "Cita enviada correctamente." : "No se pudo registrar la cita.";

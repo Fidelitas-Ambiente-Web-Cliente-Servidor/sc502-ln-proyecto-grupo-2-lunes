@@ -19,7 +19,16 @@
                     <p><?= htmlspecialchars($animal['descripcion']); ?></p>
 
                     <div class="hero-botones">
-                        <a href="index.php?accion=solicitudAdopcion&id=<?= $animal['id']; ?>" class="btn boton-principal">Quiero adoptar</a>
+                        <?php if (isset($_SESSION['usuario_id'])): ?>
+                            <a href="index.php?accion=solicitudAdopcion&id=<?= $animal['id']; ?>" class="btn boton-principal">
+                                Quiero adoptar
+                            </a>
+                        <?php else: ?>
+                            <a href="index.php?accion=login" class="btn boton-principal">
+                                Inicia sesión para adoptar
+                            </a>
+                        <?php endif; ?>
+
                         <a href="index.php?accion=animales" class="btn boton-secundario">Volver</a>
                     </div>
                 </div>
