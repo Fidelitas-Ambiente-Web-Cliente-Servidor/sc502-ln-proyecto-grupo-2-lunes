@@ -1,28 +1,54 @@
-<?php $titulo = "Abraza | Mi perfil"; ?>
+<?php $titulo = "Abraza | Mis solicitudes"; ?>
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
-<?php require_once __DIR__ . '/../layouts/nav-usuario.php'; ?>
+<?php require_once __DIR__ . '/../layouts/nav-publico.php'; ?>
 
 <main>
     <section class="seccion">
         <div class="container">
-            <h2 class="titulo-seccion">Mi perfil</h2>
+            <h2 class="titulo-seccion">Mis solicitudes de adopción</h2>
+            <p class="subtitulo-seccion">
+                Aquí puedes ver el estado de tus solicitudes.
+            </p>
 
-            <?php if (!empty($_SESSION['mensaje_perfil'])): ?>
-                <div class="alert alert-info">
-                    <?= $_SESSION['mensaje_perfil']; unset($_SESSION['mensaje_perfil']); ?>
-                </div>
-            <?php endif; ?>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Animal</th>                       
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($solicitudes)): ?>
+                            <?php foreach ($solicitudes as $s): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($s['nombre_animal']); ?></td>
 
-            <form action="index.php?accion=actualizarPerfil" method="post" class="formulario-proyecto">
-                <input type="text" name="nombre" class="form-control mb-3" value="<?= htmlspecialchars($usuario['nombre'] ?? ''); ?>" placeholder="Nombre">
-                <input type="text" name="correo" class="form-control mb-3" value="<?= htmlspecialchars($usuario['correo'] ?? ''); ?>" placeholder="Correo">
-                <input type="text" name="telefono" class="form-control mb-3" value="<?= htmlspecialchars($usuario['telefono'] ?? ''); ?>" placeholder="Teléfono">
-                <input type="text" name="direccion" class="form-control mb-3" value="<?= htmlspecialchars($usuario['direccion'] ?? ''); ?>" placeholder="Dirección">
-                <input type="text" name="vivienda" class="form-control mb-3" value="<?= htmlspecialchars($usuario['vivienda'] ?? ''); ?>" placeholder="Vivienda">
-                <input type="text" name="experiencia" class="form-control mb-3" value="<?= htmlspecialchars($usuario['experiencia'] ?? ''); ?>" placeholder="Experiencia">
-
-                <button type="submit" class="btn boton-principal">Actualizar perfil</button>
-            </form>
+                                    <td>
+                                        <?php if ($s['estado'] === 'Pendiente'): ?>
+                                            <span class="badge bg-warning text-dark">Pendiente</span>
+                                        <?php elseif ($s['estado'] === 'Aprobada'): ?>
+                                            <span class="badge bg-success">Aprobada</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-danger">Denegada</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4">No tienes solicitudes registradas.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="index.php?accion=perfil" class="btn boton-secundario">
+                    Volver a perfil
+                </a>
+            </div>
         </div>
     </section>
 </main>
