@@ -75,12 +75,14 @@ switch ($accion) {
         break;
 
     case 'perfil':
-        (new PerfilController())->showPerfil();
-        break;
+    $controller = new PerfilController();
+    $controller->showPerfil();
+    break;
 
     case 'actualizarPerfil':
-        (new PerfilController())->actualizarPerfil();
-        break;
+    $controller = new PerfilController();
+    $controller->actualizarPerfil();
+    break;
 
     case 'misSolicitudes':
         (new SolicitudController())->misSolicitudes();

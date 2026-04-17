@@ -60,10 +60,10 @@ class AuthController
         $_SESSION['usuario_rol'] = $usuario['rol'];
 
         if ($usuario['rol'] === 'admin') {
-        header("Location: index.php?accion=dashboard");
+            header("Location: index.php?accion=dashboard");
         } else {
-        header("Location: index.php?accion=animales");
-}
+            header("Location: index.php?accion=perfil");
+        }
         exit;
     }
 
@@ -74,63 +74,64 @@ class AuthController
         header("Location: index.php?accion=login");
         exit;
     }
+
     public function showRegister()
     {
-    require_once __DIR__ . '/../views/auth/register.php';
+        require_once __DIR__ . '/../views/auth/register.php';
     }
 
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        header("Location: index.php?accion=register");
-        exit;
+            header("Location: index.php?accion=register");
+            exit;
         }
 
-         $nombre = trim($_POST['nombre'] ?? '');
-         $usuario = trim($_POST['usuario'] ?? '');
-         $correo = trim($_POST['correo'] ?? '');
-         $clave = trim($_POST['clave'] ?? '');
-         $telefono = trim($_POST['telefono'] ?? '');
-         $direccion = trim($_POST['direccion'] ?? '');
-         $vivienda = trim($_POST['vivienda'] ?? '');
-         $experiencia = trim($_POST['experiencia'] ?? '');
+        $nombre = trim($_POST['nombre'] ?? '');
+        $usuario = trim($_POST['usuario'] ?? '');
+        $correo = trim($_POST['correo'] ?? '');
+        $clave = trim($_POST['clave'] ?? '');
+        $telefono = trim($_POST['telefono'] ?? '');
+        $direccion = trim($_POST['direccion'] ?? '');
+        $vivienda = trim($_POST['vivienda'] ?? '');
+        $experiencia = trim($_POST['experiencia'] ?? '');
 
         if (
-        $nombre === '' || $usuario === '' || $correo === '' || $clave === '' ||
-        $telefono === '' || $direccion === '' || $vivienda === '' || $experiencia === ''
-         ) {
-        $_SESSION['error_register'] = "Todos los campos son obligatorios.";
-        header("Location: index.php?accion=register");
-        exit;
+            $nombre === '' || $usuario === '' || $correo === '' || $clave === '' ||
+            $telefono === '' || $direccion === '' || $vivienda === '' || $experiencia === ''
+        ) {
+            $_SESSION['error_register'] = "Todos los campos son obligatorios.";
+            header("Location: index.php?accion=register");
+            exit;
         }
 
         $existe = $this->model->existeUsuarioOCorreo($usuario, $correo);
 
         if ($existe) {
-        $_SESSION['error_register'] = "El usuario o el correo ya están registrados.";
-        header("Location: index.php?accion=register");
-        exit;
+            $_SESSION['error_register'] = "El usuario o el correo ya están registrados.";
+            header("Location: index.php?accion=register");
+            exit;
         }
 
         $ok = $this->model->registrar(
-        $nombre,
-        $usuario,
-        $correo,
-        $clave,
-        $telefono,
-        $direccion,
-        $vivienda,
-        $experiencia
+            $nombre,
+            $usuario,
+            $correo,
+            $clave,
+            $telefono,
+            $direccion,
+            $vivienda,
+            $experiencia
         );
 
         if ($ok) {
-        $_SESSION['mensaje_login'] = "Usuario registrado correctamente. Ahora puedes iniciar sesión.";
-        header("Location: index.php?accion=login");
-        exit;
-       } else {
-        $_SESSION['error_register'] = "No se pudo registrar el usuario.";
-        header("Location: index.php?accion=register");
-        exit;
+            $_SESSION['mensaje_login'] = "Usuario registrado correctamente. Ahora puedes iniciar sesión.";
+            header("Location: index.php?accion=login");
+            exit;
+        } else {
+            $_SESSION['error_register'] = "No se pudo registrar el usuario.";
+            header("Location: index.php?accion=register");
+            exit;
+        }
     }
-}
 }

@@ -1,32 +1,167 @@
-<?php $titulo = "Abraza | Solicitud de adopción"; ?>
+<?php $titulo = "Abraza | Mi perfil"; ?>
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 <?php require_once __DIR__ . '/../layouts/nav-publico.php'; ?>
 
 <main>
-    <section class="seccion">
-        <div class="container">
-            <h2 class="titulo-seccion">Solicitud de adopción</h2>
+    <section class="hero hero-interno">
+        <div class="container hero-interno-contenido">
+            <div class="hero-texto">
+                <h2>Mi perfil</h2>
+                <p>
+                    En esta sección puedes visualizar y actualizar tu información básica
+                    como adoptante registrado dentro del sistema Abraza.
+                </p>
 
-            <?php if (!empty($_SESSION['mensaje_publico'])): ?>
+                <a href="index.php?accion=misSolicitudes" class="btn boton-secundario">
+                Mis solicitudes
+            </a>
+                <a href="index.php?accion=postAdopcion" class="btn boton-secundario">
+                 Post-adopción
+                 </a>
+
+            <a href="index.php?accion=estadoSolicitud" class="btn boton-secundario">
+                Estado solicitud
+                </a>
+
+            <a href="index.php?accion=historialCitas" class="btn boton-secundario">
+             Historial cita
+            </a>
+        
+        </a>
+        </div>
+
+            <div class="hero-image">
+                <img src="img/portada-abraza.jpeg" alt="Perfil de usuario Abraza">
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion fondo-suave">
+        <div class="container">
+            <h2 class="titulo-seccion">Información actual</h2>
+            <p class="subtitulo-seccion">
+                Estos son los datos actuales registrados del usuario.
+            </p>
+
+            <?php if (!empty($_SESSION['mensaje_perfil'])): ?>
                 <div class="alert alert-info">
-                    <?= $_SESSION['mensaje_publico']; unset($_SESSION['mensaje_publico']); ?>
+                    <?= $_SESSION['mensaje_perfil']; unset($_SESSION['mensaje_perfil']); ?>
                 </div>
             <?php endif; ?>
 
-            <form action="index.php?accion=guardarSolicitud" method="post" class="formulario-proyecto">
-                <input type="hidden" name="animal_id" value="<?= htmlspecialchars($_GET['id'] ?? ''); ?>">
+            <div class="grid-info">
+                <div class="tarjeta-info">
+                    <h3>Nombre</h3>
+                    <p><?= htmlspecialchars($usuario['nombre'] ?? ''); ?></p>
+                </div>
 
-                <input type="text" name="nombre" class="form-control mb-3" placeholder="Nombre completo">
-                <input type="text" name="contacto" class="form-control mb-3" placeholder="Correo o teléfono">
-                <input type="number" name="edad" class="form-control mb-3" placeholder="Edad">
-                <input type="text" name="direccion" class="form-control mb-3" placeholder="Dirección">
-                <textarea name="familia" class="form-control mb-3" placeholder="Describa su familia"></textarea>
-                <input type="text" name="experiencia" class="form-control mb-3" placeholder="Experiencia con animales">
-                <input type="text" name="vivienda" class="form-control mb-3" placeholder="Tipo de vivienda">
-                <textarea name="motivo" class="form-control mb-3" placeholder="Motivo para adoptar"></textarea>
+                <div class="tarjeta-info">
+                    <h3>Correo</h3>
+                    <p><?= htmlspecialchars($usuario['correo'] ?? ''); ?></p>
+                </div>
 
-                <button type="submit" class="btn boton-principal">Enviar solicitud</button>
-            </form>
+                <div class="tarjeta-info">
+                    <h3>Teléfono</h3>
+                    <p><?= htmlspecialchars($usuario['telefono'] ?? ''); ?></p>
+                </div>
+            </div>
+
+            <div class="grid-info" style="margin-top: 25px;">
+                <div class="tarjeta-info">
+                    <h3>Dirección</h3>
+                    <p><?= htmlspecialchars($usuario['direccion'] ?? ''); ?></p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Tipo de vivienda</h3>
+                    <p><?= htmlspecialchars($usuario['vivienda'] ?? ''); ?></p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Experiencia con mascotas</h3>
+                    <p><?= htmlspecialchars($usuario['experiencia'] ?? ''); ?></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="seccion">
+        <div class="container">
+            <h2 class="titulo-seccion">Actualizar perfil</h2>
+            <p class="subtitulo-seccion">
+                Completa los siguientes datos para actualizar tu perfil.
+            </p>
+
+            <div class="formulario-proyecto">
+                <form action="index.php?accion=actualizarPerfil" method="post">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            name="nombre"
+                            value="<?= htmlspecialchars($usuario['nombre'] ?? ''); ?>"
+                            placeholder="Digite su nombre completo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="correo"
+                            name="correo"
+                            value="<?= htmlspecialchars($usuario['correo'] ?? ''); ?>"
+                            placeholder="Digite su correo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="telefono"
+                            name="telefono"
+                            value="<?= htmlspecialchars($usuario['telefono'] ?? ''); ?>"
+                            placeholder="Digite su teléfono">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="direccion"
+                            name="direccion"
+                            value="<?= htmlspecialchars($usuario['direccion'] ?? ''); ?>"
+                            placeholder="Digite su dirección">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="vivienda" class="form-label">Tipo de vivienda</label>
+                        <select class="form-control" id="vivienda" name="vivienda">
+                            <option value="">Seleccione una opción</option>
+                            <option value="Casa" <?= (($usuario['vivienda'] ?? '') === 'Casa') ? 'selected' : ''; ?>>Casa</option>
+                            <option value="Apartamento" <?= (($usuario['vivienda'] ?? '') === 'Apartamento') ? 'selected' : ''; ?>>Apartamento</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="experiencia" class="form-label">¿Ha tenido mascotas antes?</label>
+                        <select class="form-control" id="experiencia" name="experiencia">
+                            <option value="">Seleccione una opción</option>
+                            <option value="Sí" <?= (($usuario['experiencia'] ?? '') === 'Sí') ? 'selected' : ''; ?>>Sí</option>
+                            <option value="No" <?= (($usuario['experiencia'] ?? '') === 'No') ? 'selected' : ''; ?>>No</option>
+                        </select>
+                    </div>
+
+                    <input type="submit" value="Guardar cambios" class="btn boton-principal">
+                    
+                </form>
+            </div>
         </div>
     </section>
 </main>
