@@ -59,4 +59,17 @@ class CitaController
             exit;
         }
     }
+
+    public function historialUsuario()
+    {
+        if (!isset($_SESSION['usuario_id'])) {
+            header("Location: index.php?accion=login");
+            exit;
+        }
+
+        $usuarioId = $_SESSION['usuario_id'];
+        $citas = $this->model->obtenerPorUsuario($usuarioId);
+
+        require_once __DIR__ . '/../views/usuario/historial-citas.php';
+    }
 }

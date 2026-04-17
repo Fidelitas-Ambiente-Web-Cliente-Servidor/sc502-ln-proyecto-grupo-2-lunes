@@ -83,4 +83,20 @@ class Solicitud
         $stmt->bind_param("siis", $estado, $animalId, $solicitudAprobadaId, $pendiente);
         return $stmt->execute();
     }
+    
+    public function obtenerUltimaPorUsuario($usuarioId)
+    {
+        $sql = "SELECT s.*, a.nombre AS nombre_animal, a.especie, a.edad AS edad_animal, a.imagen
+        FROM {$this->table} s
+        INNER JOIN animales a ON s.animal_id = a.id
+        WHERE s.usuario_id = ?
+        ORDER BY s.id DESC
+        LIMIT 1";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $usuarioId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
 }

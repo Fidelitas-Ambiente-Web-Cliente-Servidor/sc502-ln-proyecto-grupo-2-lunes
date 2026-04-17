@@ -135,4 +135,13 @@ class SolicitudController
             exit;
         }
     }
+
+    public function estadoSolicitud()
+    {
+        $this->validarUsuario();
+        $usuarioId = $_SESSION['usuario_id'];
+        $solicitud = $this->model->obtenerUltimaPorUsuario($usuarioId);
+        
+        require_once __DIR__ . '/../views/usuario/estado-solicitud.php';
+    }
 }

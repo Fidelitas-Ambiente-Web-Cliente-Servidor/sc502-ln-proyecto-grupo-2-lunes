@@ -3,6 +3,108 @@
 <?php require_once __DIR__ . '/../layouts/nav-publico.php'; ?>
 
 <main>
+    <section class="hero hero-interno">
+        <div class="container hero-interno-contenido">
+
+            <div class="hero-texto">
+                <h2>Apoyá nuestro refugio</h2>
+
+                <p>
+                    Las donaciones nos permiten seguir rescatando, alimentando y brindando atención
+                    veterinaria a perros y gatos que necesitan una segunda oportunidad.
+                </p>
+
+                <div class="hero-badges">
+                    <span>Bienestar animal</span>
+                    <span>Rescate</span>
+                    <span>Adopción responsable</span>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img src="img/portada-abraza.jpeg" alt="Donaciones para refugio">
+            </div>
+
+        </div>
+    </section>
+
+    <section class="seccion fondo-suave">
+        <div class="container">
+
+            <h2 class="titulo-seccion">¿En qué se utilizan las donaciones?</h2>
+
+            <div class="grid-info">
+
+                <div class="tarjeta-info">
+                    <h3>Alimentación</h3>
+                    <p>
+                        Las donaciones ayudan a comprar alimento para los perros y gatos
+                        rescatados mientras esperan una familia.
+                    </p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Atención veterinaria</h3>
+                    <p>
+                        Muchos animales llegan con enfermedades o heridas y necesitan
+                        tratamientos médicos y vacunas.
+                    </p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Cuido y mantenimiento</h3>
+                    <p>
+                        El refugio necesita recursos para limpieza, mantenimiento
+                        y cuidado diario de los animales.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="seccion">
+        <div class="container">
+
+            <h2 class="titulo-seccion">Métodos de donación</h2>
+
+            <p class="subtitulo-seccion">
+                Podés apoyar nuestro refugio a través de los siguientes medios.
+            </p>
+
+            <div class="grid-info">
+
+                <div class="tarjeta-info">
+                    <h3>Transferencia bancaria</h3>
+                    <p>
+                        Banco Nacional<br>
+                        Cuenta: 123456789<br>
+                        SINPE móvil: 8888-8888
+                    </p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Donaciones de alimento o artículos</h3>
+                    <p>
+                        También podés donar alimento para perros y gatos,
+                        medicinas, cobijas o artículos de limpieza.
+                    </p>
+                </div>
+
+                <div class="tarjeta-info">
+                    <h3>Apoyo directo</h3>
+                    <p>
+                        Podés coordinar una visita al refugio y realizar
+                        tu donación directamente en nuestras instalaciones.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
     <section class="seccion">
         <div class="container">
             <h2 class="titulo-seccion">Donaciones</h2>

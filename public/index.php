@@ -89,13 +89,11 @@ switch ($accion) {
         break;
 
     case 'estadoSolicitud':
-        $solicitud = [];
-        require_once __DIR__ . '/../app/views/usuario/estado-solicitud.php';
+        (new SolicitudController())->estadoSolicitud();
         break;
 
     case 'historialCitas':
-        $citas = [];
-        require_once __DIR__ . '/../app/views/usuario/historial-citas.php';
+        (new CitaController())->historialUsuario();
         break;
 
     case 'postAdopcion':
