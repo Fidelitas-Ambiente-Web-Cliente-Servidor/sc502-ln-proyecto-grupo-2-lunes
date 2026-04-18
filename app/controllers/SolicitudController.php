@@ -41,6 +41,12 @@ class SolicitudController
             exit;
         }
 
+        if (!is_numeric($edad) || (int)$edad < 18) {
+    $_SESSION['mensaje_publico'] = "Solo personas mayores o iguales a 18 años pueden enviar la solicitud.";
+    header("Location: index.php?accion=solicitudAdopcion&id=" . $animalId);
+    exit;
+}
+
         $usuarioId = $_SESSION['usuario_id'];
         $ok = $this->model->insertar($usuarioId, $animalId, $nombre, $contacto, $edad, $direccion, $familia, $experiencia, $vivienda, $motivo);
 

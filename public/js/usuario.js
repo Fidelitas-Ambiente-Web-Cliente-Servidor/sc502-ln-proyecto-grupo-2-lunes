@@ -1,154 +1,134 @@
-$(document).ready(function () {
-
-    let year = $("#year");
-    if (year.length) {
-        year.text(new Date().getFullYear());
+document.addEventListener("DOMContentLoaded", function () {
+    function valor(campo) {
+        return campo ? (campo.value || "").trim() : "";
     }
 
-    function contactoValido(texto) {
-        texto = $.trim(texto);
-
-        if (texto === "") {
-            return false;
-        }
-
-        if ($.isNumeric(texto) && texto.length === 8) {
-            return true;
-        }
-
-        if (texto.indexOf("@") !== -1) {
-            return true;
-        }
-
-        return false;
+    function correoValido(texto) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
     }
 
-    // FORM PERFIL
-    if ($("#formPerfil").length) {
-        let contenedor = $(".formulario-proyecto").first();
+    function telefonoValido(texto) {
+        return /^[0-9]{8}$/.test(texto);
+    }
 
-        if ($("#mensajeErrorPerfil").length === 0) {
-            contenedor.append('<div id="mensajeErrorPerfil" class="mensaje-formulario mensaje-error" style="display:none;"></div>');
-        }
+    function limpiarValidezFormulario(form) {
+        if (!form) return;
+        const campos = form.querySelectorAll("input, textarea, select");
+        campos.forEach(function (campo) {
+            campo.addEventListener("input", function () {
+                campo.setCustomValidity("");
+            });
+            campo.addEventListener("change", function () {
+                campo.setCustomValidity("");
+            });
+        });
+    }
 
-        if ($("#mensajeOkPerfil").length === 0) {
-            contenedor.append('<div id="mensajeOkPerfil" class="mensaje-formulario mensaje-ok" style="display:none;"></div>');
-        }
+    function invalidar(campo, mensaje) {
+        if (!campo) return false;
+        campo.setCustomValidity(mensaje);
+        campo.reportValidity();
+        campo.focus();
+        return true;
+    }
 
-        function limpiarMensajesPerfil() {
-            $("#mensajeErrorPerfil").hide().html("");
-            $("#mensajeOkPerfil").hide().html("");
-        }
+    const year = document.getElementById("year");
+    if (year) {
+        year.textContent = new Date().getFullYear();
+    }
 
-        $("#formPerfil").on("submit", function (event) {
-            let nombre = $("#nombrePerfil");
-            let correo = $("#correoPerfil");
-            let telefono = $("#telefonoPerfil");
-            let direccion = $("#direccionPerfil");
-            let vivienda = $("#viviendaPerfil");
-            let experiencia = $("#experienciaPerfil");
+    const formPerfil = document.querySelector('#formPerfil, form[action*="actualizarPerfil"]');
+    if (formPerfil) {
+        limpiarValidezFormulario(formPerfil);
 
-            let datoNombre = $("#datoNombrePerfil");
-            let datoCorreo = $("#datoCorreoPerfil");
-            let datoTelefono = $("#datoTelefonoPerfil");
-            let datoDireccion = $("#datoDireccionPerfil");
-            let datoVivienda = $("#datoViviendaPerfil");
-            let datoExperiencia = $("#datoExperienciaPerfil");
+        formPerfil.addEventListener("submit", function (event) {
+            const nombre = formPerfil.querySelector('#nombrePerfil, #nombre, input[name="nombre"]');
+            const correo = formPerfil.querySelector('#correoPerfil, #correo, input[name="correo"]');
+            const telefono = formPerfil.querySelector('#telefonoPerfil, #telefono, input[name="telefono"]');
+            const direccion = formPerfil.querySelector('#direccionPerfil, #direccion, input[name="direccion"]');
+            const vivienda = formPerfil.querySelector('#viviendaPerfil, #vivienda, select[name="vivienda"], input[name="vivienda"]');
+            const experiencia = formPerfil.querySelector('#experienciaPerfil, #experiencia, select[name="experiencia"], input[name="experiencia"]');
 
-            limpiarMensajesPerfil();
-
-            let errores = "";
-
-            if ($.trim(nombre.val()) === "") {
-                errores += "<li>El nombre es obligatorio.</li>";
-                nombre.css("border-color", "red");
-            } else {
-                nombre.css("border-color", "#cfdede");
-            }
-
-            if ($.trim(correo.val()) === "") {
-                errores += "<li>El correo es obligatorio.</li>";
-                correo.css("border-color", "red");
-            } else if (!contactoValido(correo.val())) {
-                errores += "<li>El correo debe ser válido.</li>";
-                correo.css("border-color", "red");
-            } else {
-                correo.css("border-color", "#cfdede");
-            }
-
-            if ($.trim(telefono.val()) === "") {
-                errores += "<li>El teléfono es obligatorio.</li>";
-                telefono.css("border-color", "red");
-            } else if (!$.isNumeric(telefono.val()) || telefono.val().length !== 8) {
-                errores += "<li>El teléfono debe tener 8 dígitos.</li>";
-                telefono.css("border-color", "red");
-            } else {
-                telefono.css("border-color", "#cfdede");
-            }
-
-            if ($.trim(direccion.val()) === "") {
-                errores += "<li>La dirección es obligatoria.</li>";
-                direccion.css("border-color", "red");
-            } else {
-                direccion.css("border-color", "#cfdede");
-            }
-
-            if ($.trim(vivienda.val()) === "") {
-                errores += "<li>Debe seleccionar el tipo de vivienda.</li>";
-                vivienda.css("border-color", "red");
-            } else {
-                vivienda.css("border-color", "#cfdede");
-            }
-
-            if ($.trim(experiencia.val()) === "") {
-                errores += "<li>Debe indicar si ha tenido mascotas antes.</li>";
-                experiencia.css("border-color", "red");
-            } else {
-                experiencia.css("border-color", "#cfdede");
-            }
-
-            if (errores !== "") {
+            if (valor(nombre) === "") {
                 event.preventDefault();
-                $("#mensajeErrorPerfil").show().html("<strong>Revisa lo siguiente:</strong><ul>" + errores + "</ul>");
+                invalidar(nombre, "El nombre es obligatorio.");
                 return;
             }
 
-            if (datoNombre.length) datoNombre.text(nombre.val());
-            if (datoCorreo.length) datoCorreo.text(correo.val());
-            if (datoTelefono.length) datoTelefono.text(telefono.val());
-            if (datoDireccion.length) datoDireccion.text(direccion.val());
-            if (datoVivienda.length) datoVivienda.text(vivienda.val());
-            if (datoExperiencia.length) datoExperiencia.text(experiencia.val());
+            if (valor(correo) === "") {
+                event.preventDefault();
+                invalidar(correo, "El correo es obligatorio.");
+                return;
+            }
 
-            $("#mensajeOkPerfil").show().html("<strong>Perfil validado correctamente.</strong>");
+            if (!correoValido(valor(correo))) {
+                event.preventDefault();
+                invalidar(correo, "Debe ingresar un correo válido.");
+                return;
+            }
+
+            if (valor(telefono) === "") {
+                event.preventDefault();
+                invalidar(telefono, "El teléfono es obligatorio.");
+                return;
+            }
+
+            if (!telefonoValido(valor(telefono))) {
+                event.preventDefault();
+                invalidar(telefono, "El teléfono debe tener 8 dígitos.");
+                return;
+            }
+
+            if (valor(direccion) === "") {
+                event.preventDefault();
+                invalidar(direccion, "La dirección es obligatoria.");
+                return;
+            }
+
+            if (valor(vivienda) === "") {
+                event.preventDefault();
+                invalidar(vivienda, "Debe seleccionar el tipo de vivienda.");
+                return;
+            }
+
+            if (valor(experiencia) === "") {
+                event.preventDefault();
+                invalidar(experiencia, "Debe indicar la experiencia con mascotas.");
+            }
         });
     }
 
-    // FILTRO SOLICITUDES
-    $("#formFiltroSolicitudes").on("submit", function (event) {
-        event.preventDefault();
+    const formFiltroSolicitudes = document.getElementById("formFiltroSolicitudes");
+    if (formFiltroSolicitudes) {
+        formFiltroSolicitudes.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        let estadoSeleccionado = $("#filtroEstadoSolicitud").val();
-        let cantidadVisibles = 0;
+            const estadoSeleccionado = document.getElementById("filtroEstadoSolicitud")?.value || "todas";
+            const filas = document.querySelectorAll(".solicitud");
+            const mensaje = document.getElementById("mensajeFiltroSolicitud");
 
-        $(".solicitud").each(function () {
-            let estadoSolicitud = String($(this).data("estado") || "");
+            let visibles = 0;
 
-            if (estadoSeleccionado === "todas" || estadoSolicitud === estadoSeleccionado) {
-                $(this).show();
-                cantidadVisibles++;
-            } else {
-                $(this).hide();
+            filas.forEach(function (fila) {
+                const estado = String(fila.dataset.estado || "");
+
+                if (estadoSeleccionado === "todas" || estado === estadoSeleccionado) {
+                    fila.style.display = "";
+                    visibles++;
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+
+            if (mensaje) {
+                if (visibles > 0) {
+                    mensaje.textContent = "El filtro se aplicó correctamente.";
+                    mensaje.style.color = "green";
+                } else {
+                    mensaje.textContent = "No se encontraron solicitudes con ese estado.";
+                    mensaje.style.color = "red";
+                }
             }
         });
-
-        if ($("#mensajeFiltroSolicitud").length) {
-            if (cantidadVisibles > 0) {
-                $("#mensajeFiltroSolicitud").text("El filtro se aplicó correctamente.").css("color", "green");
-            } else {
-                $("#mensajeFiltroSolicitud").text("No se encontraron solicitudes con ese estado.").css("color", "red");
-            }
-        }
-    });
-
+    }
 });

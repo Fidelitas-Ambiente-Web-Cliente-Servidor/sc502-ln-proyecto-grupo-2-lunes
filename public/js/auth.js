@@ -1,28 +1,56 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector('#formLogin, form[action*="loginPost"]');
+    if (!form) return;
 
-    $("#formLogin").on("submit", function (e) {
-        let usuario = $("#usuarioLogin").val().trim();
-        let clave = $("#claveLogin").val().trim();
-        let mensaje = $("#mensajeLogin");
+    const usuario = form.querySelector('#usuarioLogin, input[name="usuario"]');
+    const clave = form.querySelector('#claveLogin, input[name="clave"]');
+    const mensaje = document.getElementById("mensajeLogin");
 
-        mensaje.text("");
+    function limpiarCampo(campo) {
+        if (!campo) return;
+        campo.setCustomValidity("");
+        campo.addEventListener("input", function () {
+            campo.setCustomValidity("");
+            if (mensaje) mensaje.textContent = "";
+        });
+    }
 
-        if (usuario === "" || clave === "") {
+    limpiarCampo(usuario);
+    limpiarCampo(clave);
+
+    form.addEventListener("submit", function (e) {
+        if (!usuario || !clave) return;
+
+        const datoUsuario = (usuario.value || "").trim();
+        const datoClave = (clave.value || "").trim();
+
+        usuario.setCustomValidity("");
+        clave.setCustomValidity("");
+
+        if (datoUsuario === "") {
             e.preventDefault();
-            mensaje.text("Todos los campos son obligatorios.");
-            mensaje.css("color", "red");
+            usuario.setCustomValidity("Debe ingresar el usuario o correo.");
+            usuario.reportValidity();
+            if (mensaje) mensaje.textContent = "Debe ingresar el usuario o correo.";
             return;
         }
 
-        if (clave.length < 3) {
+        if (datoClave === "") {
             e.preventDefault();
-            mensaje.text("La contraseña debe tener al menos 3 caracteres.");
-            mensaje.css("color", "red");
+            clave.setCustomValidity("Debe ingresar la contraseña.");
+            clave.reportValidity();
+            if (mensaje) mensaje.textContent = "Debe ingresar la contraseña.";
             return;
         }
 
-        mensaje.text("Validando...");
-        mensaje.css("color", "green");
+        if (datoClave.length < 3) {
+            e.preventDefault();
+            clave.setCustomValidity("La contraseña debe tener al menos 3 caracteres.");
+            clave.reportValidity();
+            if (mensaje) mensaje.textContent = "La contraseña debe tener al menos 3 caracteres.";
+            return;
+        }
+
+        if (mensaje) mensaje.textContent = "";
     });
-
 });

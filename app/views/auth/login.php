@@ -22,7 +22,7 @@
 
             <div class="login-contenedor">
                 <div class="login-formulario">
-                    <form action="index.php?accion=loginPost" method="post">
+                    <form id="formLogin" action="index.php?accion=loginPost" method="post">
                         <div class="mb-3">
                             <label for="usuarioLogin" class="form-label">Usuario o correo</label>
                             <input type="text" class="form-control" id="usuarioLogin" name="usuario">
@@ -33,12 +33,14 @@
                             <input type="password" class="form-control" id="claveLogin" name="clave">
                         </div>
 
+                        <p id="mensajeLogin" class="mt-2 fw-bold"></p>
+
                         <button type="submit" class="btn boton-principal">Ingresar</button>
                         <p class="mt-3">¿No tienes cuenta?</p>
 
-                    <a href="index.php?accion=register" class="btn btn-success">
-                    Registrarme
-                     </a>
+                        <a href="index.php?accion=register" class="btn btn-success">
+                            Registrarme
+                        </a>
                     </form>
                 </div>
             </div>
@@ -46,4 +48,5 @@
     </section>
 </main>
 
+<script src="/sc502-ln-proyecto-grupo-2-lunes/public/js/auth.js"></script>
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
